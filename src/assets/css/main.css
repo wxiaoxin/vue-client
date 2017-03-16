@@ -8,8 +8,29 @@ body, html {
     height: 100%;
 }
 
+hr {
+    border-top: 1px solid #ddd;
+    width: 960px;
+}
+
 ul.el-menu {
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px;
+}
+
+/*表单下每行元素间隔12px*/
+.el-form .el-row {
+    margin: 24px;
+}
+
+.edit-panel,
+.table-panel {
+    padding: 32px;
+}
+
+.edit-panel .el-input,
+.edit-panel .el-select,
+.edit-panel .el-textarea {
+    width: 360px !important;
 }

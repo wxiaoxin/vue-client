@@ -1,7 +1,7 @@
 <template>
 <el-row>
     <el-col :span="12">
-        <div class="title" style="margin: 10px">
+        <div class="title" style="margin-left: 32px; margin-top: 10px;">
             <h2>{{$root.title}}
                 <small>{{$root.subTitle}}</small>
             </h2>
@@ -44,6 +44,6 @@
         font-size: 15px;
     }
 
-
+    
 
 </style>
