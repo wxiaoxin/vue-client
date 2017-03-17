@@ -34,3 +34,34 @@ ul.el-menu {
 .edit-panel .el-textarea {
     width: 360px !important;
 }
+
+
+
+/* 操作面板 */
+.option-panel {
+    margin-bottom: 20px;
+}
+
+/* 更多按钮 */
+.option-more {
+    float: right;
+}
+
+/* 分页 */
+.main-content-page {
+    margin-top: 24px;
+    text-align: right;
+}
+
+.search-form {
+    margin-top: 12px;
+}
+
+.search-form .el-input,
+.search-form .el-select {
+    width: 120px !important;
+}
+
+.search-form .el-form-item {
+    margin-bottom: 0px !important;
+}

@@ -21,21 +21,21 @@
                                    icon="delete"
                                    size="small"
                                    title="批量删除"
-                                   @click="batchDel"
+                                   @click="handleBatchDelete"
                                    :disabled="selectedData == ''"></el-button>
 
                     </el-col>
 
                     <!-- 搜索框 -->
-                    <el-col :span="8" :offset="9">
+                    <el-col :span="6" :offset="11">
 
-                        <el-input v-model="searchData.value" placeholder="请输入内容" size="small">
-                            <el-select v-model="searchData.type" slot="prepend" placeholder="请选择">
+                        <el-input v-model="searchData.value" placeholder="请输入内容" size="small" style="width: 360px">
+                            <el-select v-model="searchData.type" slot="prepend" placeholder="请选择" style="width: 100px;">
                                 <el-option label="ID" value="1"></el-option>
                                 <el-option label="名称" value="2"></el-option>
                                 <el-option label="宏参数" value="3"></el-option>
                             </el-select>
-                            <el-button slot="append" icon="search" @click="searchHandler"></el-button>
+                            <el-button slot="append" icon="search" @click="handleSearch"></el-button>
                         </el-input>
 
                     </el-col>
@@ -43,7 +43,7 @@
                     <!-- 更多选项 -->
                     <el-col :span="4">
 
-                        <el-dropdown class="option-more" @command="showSearchPanel">
+                        <el-dropdown class="option-more" @command="showSearchForm">
                             <span class="el-dropdown-link">
                                 更多<i class="el-icon-caret-bottom el-icon--right"></i>
                             </span>
@@ -55,25 +55,53 @@
 
                     </el-col>
 
-
                 </el-row>
 
-                <div v-show="searchPanelFlag" class="search-panel">
+                <div v-show="searchFormFlag" class="search-form">
 
                     <el-row>
 
                         <el-form :inline="true">
                             <el-form-item>
-                                <el-input placeholder="ID" size="small"></el-input>
+                                <el-input v-model="searchFormItem.name" placeholder="名称" size="small"></el-input>
                             </el-form-item>
                             <el-form-item>
-                                <el-input placeholder="名称" size="small"></el-input>
+                                <el-date-picker v-model="searchFormItem.createTime" type="date" placeholder="时间"
+                                                size="small"></el-date-picker>
                             </el-form-item>
                             <el-form-item>
-                                <el-input placeholder="日期" size="small"></el-input>
+                                <el-select v-model="searchFormItem.sysType" placeholder="宏类型" size="small">
+                                    <el-option value="1" label="系统"></el-option>
+                                    <el-option value="2" label="可编辑"></el-option>
+                                </el-select>
                             </el-form-item>
                             <el-form-item>
-                                <el-button type="default" size="small">查询</el-button>
+                                <el-select v-model="searchFormItem.useType" placeholder="应用类型" size="small">
+                                    <el-option value="1" label="广告位"></el-option>
+                                    <el-option value="2" label="策略"></el-option>
+                                    <el-option value="3" label="创意"></el-option>
+                                    <el-option value="4" label="物料"></el-option>
+                                    <el-option value="5" label="动作"></el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-select v-model="searchFormItem.dataType" placeholder="元素格式" size="small">
+                                    <el-option value="1" label="文本"></el-option>
+                                    <el-option value="2" label="数字"></el-option>
+                                    <el-option value="3" label="url"></el-option>
+                                    <el-option value="4" label="url列表"></el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-select v-model="searchFormItem.editType" placeholder="编辑类型" size="small">
+                                    <el-option value="1" label="填写"></el-option>
+                                    <el-option value="2" label="上传"></el-option>
+                                    <el-option value="3" label="填写+上传"></el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="default" size="small" @click="handleMultiSearch">查询</el-button>
+                                <el-button type="default" size="small" @click="handleReset">重置</el-button>
                                 <el-button type="text" size="small" @click="closeSearchPanel">
                                     收起 <i class="el-icon-caret-top"></i>
                                 </el-button>
@@ -145,7 +173,13 @@
 
             <!-- 分页 -->
             <div class="main-content-page">
-                <el-pagination :page-size="10" layout="total, prev, pager, next" :total="87"></el-pagination>
+                <el-pagination
+                        layout="sizes, total, prev, pager, next"
+                        @current-change="handleCurrentChange"
+                        @size-change="handleSizeChange"
+                        :page-sizes="[10, 15, 20]"
+                        :page-size="page.pageSize"
+                        :total="page.total"></el-pagination>
             </div>
 
         </el-card>
@@ -162,26 +196,38 @@
             return {
                 selectedData: "",
                 data: [],
-                searchPanelFlag: false,
+                searchFormFlag: false,
                 searchData: {
                     type: "",
                     value: ""
                 },
                 page: {
                     pageNum: 1,
-                    pageSize: 10
+                    pageSize: 10,
+                    pages: 0,
+                    total: 0
+                },
+                searchFormItem: {
+                    id: "",
+                    name: "",
+                    macro: "",
+                    createTime: "",
+                    sysType: "",
+                    useType: "",
+                    dataType: "",
+                    editType: ""
                 }
             }
         },
         methods: {
             // 显示查询面板
-            showSearchPanel (value) {
+            showSearchForm (value) {
                 if (value == "refresh") {
-                    this.searchPanelFlag = false;
+                    this.searchFormFlag = false;
                     this.refresh();
                 }
                 if (value == "search") {
-                    this.searchPanelFlag = !this.searchPanelFlag;
+                    this.searchFormFlag = !this.searchFormFlag;
                 }
             },
             // 下拉框选择改变事件监听器
@@ -194,7 +240,7 @@
             },
             // 收起查询面板
             closeSearchPanel() {
-                this.searchPanelFlag = false;
+                this.searchFormFlag = false;
             },
             // 批量删除
             batchDel () {
@@ -207,7 +253,7 @@
                     confirmButtonText: "是的",
                     type: "warning"
                 }).then(() => {
-                    this.$http.get("http://localhost:8888/macros/delete/" + id)
+                    this.$http.get("/macros/delete/" + id)
                         .then((response) => {
                             this.$message({
                                 type: "success",
@@ -220,17 +266,44 @@
                                 message: "删除失败，稍后重试"
                             })
                         });
-                }).catch(() => {});
+                }).catch(() => {
+                });
+            },
+            // 批量删除
+            handleBatchDelete () {
+                console.log(this.selectedData);
+                let ids = "";
+                for (let i = 0; i < this.selectedData.length; i++) {
+                    ids += this.selectedData[i].id;
+                    ids += ",";
+                }
+                console.log(ids.substr(0, ids.length - 1));
+                this.$http.get("/macros/bdel", {
+                    params: {
+                        id: ids.substr(0, ids.length - 1)
+                    }
+                }).then((response) => {
+                    this.$message({
+                        type: "success",
+                        message: "删除成功"
+                    });
+                    this.refresh();
+                }, (response) => {
+                   this.$message({
+                       type: "error",
+                       message: "批量删除失败，稍后重试"
+                   });
+                });
             },
             // 编辑
             edit(id) {
                 console.log(id);
             },
             // 单条件查询
-            searchHandler () {
+            handleSearch () {
                 if (this.searchData.type == 1) {
                     // ID
-                    this.$http.get("http://localhost:8888/macros/get/" + this.searchData.value)
+                    this.$http.get("/macros/get/" + this.searchData.value)
                         .then((response) => {
                             if (response.data == "") {
                                 this.$message({
@@ -238,6 +311,10 @@
                                     message: "没有查询到数据"
                                 })
                             } else {
+                                this.page.pageNum = 1;
+                                this.page.pageSize = 10;
+                                this.page.pages = 1;
+                                this.page.total = 1;
                                 this.data = new Array(response.data);
                             }
                         }, (response) => {
@@ -247,33 +324,90 @@
                             })
                         });
                 } else {
-                    this.$message({
-                        type: "info",
-                        message: "请选择查询条件并填写值"
-                    })
+                    if (this.searchData.type == 2) {
+                        this.searchFormItem.name = this.searchData.value;
+                    }
+                    if (this.searchData.type == 3) {
+                        this.searchFormItem.macro = this.searchData.value;
+                    }
+                    this.$http.get("/macros/query", {
+                        params: this.searchFormItem
+                    }).then((response) => {
+                        this.data = response.data.data;
+                        this.page.pageNum = response.data.pageNum;
+                        this.page.pageSize = response.data.pageSize;
+                        this.page.pages = response.data.pages;
+                        this.page.total = response.data.total;
+                    }, (response) => {
+                        this.$message({
+                            type: "error",
+                            message: "数据加载失败，稍后重试"
+                        })
+                    });
                 }
             },
-            parseSysType: common.parseSysType,
-            parseUseType: common.parseUseType,
-            parseDataType: common.parseDataType,
-            parseEditType: common.parseEditType,
-            parseDate: common.parseDate,
-            // 刷新数据
-            refresh () {
-                this.$http.get("http://localhost:8888/macros/all", {
-                    params: {
-                        pageNum: this.page.pageNum,
-                        pageSize: this.page.pageSize
-                    }
+            // 复合条件查询
+            handleMultiSearch () {
+                this.$http.get("/macros/query", {
+                    params: this.searchFormItem
                 }).then((response) => {
-                    this.data = response.data;
+                    this.data = response.data.data;
+                    this.page.pageNum = response.data.pageNum;
+                    this.page.pageSize = response.data.pageSize;
+                    this.page.pages = response.data.pages;
+                    this.page.total = response.data.total;
                 }, (response) => {
                     this.$message({
                         type: "error",
                         message: "数据加载失败，稍后重试"
                     })
                 });
-            }
+            },
+            // 重置
+            handleReset () {
+                this.searchData.type = "";
+                this.searchData.value = "";
+                for (let name in this.searchFormItem) {
+                    this.searchFormItem[name] = "";
+                }
+            },
+            // 刷新数据
+            refresh () {
+                this.$http.get("/macros/all", {
+                    params: {
+                        pageNum: this.page.pageNum,
+                        pageSize: this.page.pageSize
+                    }
+                }).then((response) => {
+                    this.data = response.data.data;
+                    this.page.pageNum = response.data.pageNum;
+                    this.page.pageSize = response.data.pageSize;
+                    this.page.pages = response.data.pages;
+                    this.page.total = response.data.total;
+                }, (response) => {
+                    this.$message({
+                        type: "error",
+                        message: "数据加载失败，稍后重试"
+                    })
+                });
+            },
+            // 监听页面记录大小改变事件
+            handleSizeChange (value) {
+                console.log(value);
+                this.page.pageSize = value;
+                this.refresh();
+            },
+            // 监听当前页码改变事件
+            handleCurrentChange (value) {
+                console.log(value);
+                this.page.pageNum = value;
+                this.refresh();
+            },
+            parseSysType: common.parseSysType,
+            parseUseType: common.parseUseType,
+            parseDataType: common.parseDataType,
+            parseEditType: common.parseEditType,
+            parseDate: common.parseDate
         },
         created () {
             this.$root.title = '广告供应商';
@@ -283,49 +417,3 @@
     }
 
 </script>
-
-<style>
-
-    /* 主体内容 */
-    .main-content {
-        /*margin: 32px 22px;*/
-        /*padding: 20px;*/
-        /*box-shadow: 0 10px 20px 0 rgba(7, 17, 27, .1);*/
-        /*border-radius: 4px;*/
-
-    }
-
-    /* 操作面板 */
-    .option-panel {
-        margin-bottom: 20px;
-    }
-
-    /* 更多按钮 */
-    .option-more {
-        float: right;
-    }
-
-    /* 查询面板 */
-    .search-panel {
-        margin-top: 16px
-    }
-
-    /* 分页 */
-    .main-content-page {
-        margin-top: 24px;
-        text-align: right;
-    }
-
-    .el-select {
-        width: 100px;
-    }
-
-    .searchPanelFlag .el-input {
-        width: 100px !important;
-    }
-
-    .el-form-item {
-        margin-bottom: 0px !important;
-    }
-
-</style>
