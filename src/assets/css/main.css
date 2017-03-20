@@ -19,6 +19,14 @@ ul.el-menu {
     border-radius: 0px;
 }
 
+
+@media screen and (max-width: 996px) {
+    .side-wrapper {
+        display: none;
+    }
+}
+
+
 /*表单下每行元素间隔12px*/
 .el-form .el-row {
     margin: 24px;
@@ -44,7 +52,7 @@ ul.el-menu {
 
 /* 更多按钮 */
 .option-more {
-    float: right;
+    /*float: right;*/
 }
 
 /* 分页 */

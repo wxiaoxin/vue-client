@@ -7,7 +7,7 @@
                 <el-row>
 
                     <!-- 快捷操作 -->
-                    <el-col :span="3">
+                    <el-col :lg="4" :ms="4" :sm="4" :xs="4">
 
                         <!-- 新增 -->
                         <el-button type="primary" size="small" title="新增">
@@ -27,33 +27,39 @@
                     </el-col>
 
                     <!-- 搜索框 -->
-                    <el-col :span="6" :offset="11">
+                    <el-col :lg="{span:12, offset:6, push:2}" :md="{span:15, offset:5}" :sm="{span:20}" :xs="20">
 
-                        <el-input v-model="searchData.value" placeholder="请输入内容" size="small" style="width: 360px">
-                            <el-select v-model="searchData.type" slot="prepend" placeholder="请选择" style="width: 100px;">
-                                <el-option label="ID" value="1"></el-option>
-                                <el-option label="名称" value="2"></el-option>
-                                <el-option label="宏参数" value="3"></el-option>
-                            </el-select>
-                            <el-button slot="append" icon="search" @click="handleSearch"></el-button>
-                        </el-input>
+                        <div style="float: right">
+
+                            <el-input v-model="searchData.value" placeholder="请输入内容" size="small" style="width: 320px">
+                                <el-select v-model="searchData.type" slot="prepend" placeholder="请选择" style="width: 100px;">
+                                    <el-option label="ID" value="1"></el-option>
+                                    <el-option label="名称" value="2"></el-option>
+                                    <el-option label="宏参数" value="3"></el-option>
+                                </el-select>
+                                <el-button slot="append" icon="search" @click="handleSearch"></el-button>
+                            </el-input>
+
+                            <el-dropdown class="option-more" @command="showSearchForm" style="margin-left: 64px">
+                                <span class="el-dropdown-link">
+                                    更多<i class="el-icon-caret-bottom el-icon--right"></i>
+                                </span>
+                                <el-dropdown-menu slot="dropdown">
+                                    <el-dropdown-item command="refresh">刷新</el-dropdown-item>
+                                    <el-dropdown-item command="search">查询框</el-dropdown-item>
+                                </el-dropdown-menu>
+                            </el-dropdown>
+
+                        </div>
+
 
                     </el-col>
 
-                    <!-- 更多选项 -->
-                    <el-col :span="4">
+                    <!-- 更多选项
+                    <el-col :lg="2" :md="2" :sm="3" :xs="2" style="float: right">
 
-                        <el-dropdown class="option-more" @command="showSearchForm">
-                            <span class="el-dropdown-link">
-                                更多<i class="el-icon-caret-bottom el-icon--right"></i>
-                            </span>
-                            <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item command="refresh">刷新</el-dropdown-item>
-                                <el-dropdown-item command="search">查询框</el-dropdown-item>
-                            </el-dropdown-menu>
-                        </el-dropdown>
 
-                    </el-col>
+                    </el-col> -->
 
                 </el-row>
 
@@ -118,11 +124,11 @@
             <!-- 表格 -->
             <div class="main-content-table">
 
-                <el-table :data="data" style="width: 100%" @selection-change="handleSelectionChange">
+                <el-table :data="data" style="width: 100%" @selection-change="handleSelectionChange" :border="true">
 
-                    <el-table-column type="selection" width="55"></el-table-column>
+                    <el-table-column type="selection" width="55" ></el-table-column>
 
-                    <el-table-column prop="id" width="120" label="ID"></el-table-column>
+                    <el-table-column prop="id" width="120" label="ID" fixed="left"></el-table-column>
 
                     <el-table-column prop="name" label="名称" width="100"></el-table-column>
 
@@ -158,7 +164,7 @@
                         </template>
                     </el-table-column>
 
-                    <el-table-column label="操作" width="150">
+                    <el-table-column label="操作" width="150" fixed="right">
                         <template scope="scope">
                             <el-button type="primary" :plain="true" size="small" @click="edit(scope.row.id)">编辑
                             </el-button>
@@ -271,13 +277,11 @@
             },
             // 批量删除
             handleBatchDelete () {
-                console.log(this.selectedData);
                 let ids = "";
                 for (let i = 0; i < this.selectedData.length; i++) {
                     ids += this.selectedData[i].id;
                     ids += ",";
                 }
-                console.log(ids.substr(0, ids.length - 1));
                 this.$http.get("/macros/bdel", {
                     params: {
                         id: ids.substr(0, ids.length - 1)

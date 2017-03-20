@@ -3,18 +3,16 @@
 
         <el-row class="wrapper">
 
-            <el-col :lg="4" :md="4" :sm="5" :xs="6" class="side-wrapper">
+            <el-col :lg="4" :md="4" :sm="0" :xs="0" class="side-wrapper">
                 <side-bar></side-bar>
             </el-col>
 
-            <el-col :lg="20" :md="20" :sm="19" :xs="18">
+            <el-col :lg="20" :md="20" :sm="24" :xs="24">
                 <bread></bread>
                 <div class="content-wrapper">
                     <!-- 路由窗口 -->
                     <router-view></router-view>
                 </div>
-
-
             </el-col>
 
         </el-row>
