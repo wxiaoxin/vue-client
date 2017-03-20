@@ -3,8 +3,8 @@ import VueRouter from 'vue-router'
 
 import Dashboard from '../components/modules/DashBoard.vue'
 
-import Supplier from '../components/modules/media/supplier/list/Supplier.vue'
-import SupplierNew from '../components/modules/media/supplier/new/SupplierNew.vue'
+import Macro from '../components/modules/system/macro/list/Macro.vue'
+import MacroEdit from '../components/modules/system/macro/edit/MacroEdit.vue'
 
 Vue.use(VueRouter);
 
@@ -13,13 +13,12 @@ export default new VueRouter({
         {
             path: '/',
             component: Dashboard
-        },
-        {
-            path: '/supplier/list',
-            component: Supplier
         }, {
-            path: '/supplier/new',
-            component: SupplierNew
+            path: '/macro/list',
+            component: Macro
+        }, {
+            path: '/macro/edit/:id?',
+            component: MacroEdit
         }
     ]
 })

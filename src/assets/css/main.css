@@ -19,6 +19,10 @@ ul.el-menu {
     border-radius: 0px;
 }
 
+.el-dropdown .el-button-group {
+    display: inline-block !important;
+}
+
 
 @media screen and (max-width: 996px) {
     .side-wrapper {
@@ -29,7 +33,7 @@ ul.el-menu {
 
 /*表单下每行元素间隔12px*/
 .el-form .el-row {
-    margin: 24px;
+    margin: 20px;
 }
 
 .edit-panel,
@@ -42,7 +46,6 @@ ul.el-menu {
 .edit-panel .el-textarea {
     width: 360px !important;
 }
-
 
 
 /* 操作面板 */

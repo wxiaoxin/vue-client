@@ -32,7 +32,8 @@
                         <div style="float: right">
 
                             <el-input v-model="searchData.value" placeholder="请输入内容" size="small" style="width: 320px">
-                                <el-select v-model="searchData.type" slot="prepend" placeholder="请选择" style="width: 100px;">
+                                <el-select v-model="searchData.type" slot="prepend" placeholder="请选择"
+                                           style="width: 100px;">
                                     <el-option label="ID" value="1"></el-option>
                                     <el-option label="名称" value="2"></el-option>
                                     <el-option label="宏参数" value="3"></el-option>
@@ -54,12 +55,6 @@
 
 
                     </el-col>
-
-                    <!-- 更多选项
-                    <el-col :lg="2" :md="2" :sm="3" :xs="2" style="float: right">
-
-
-                    </el-col> -->
 
                 </el-row>
 
@@ -124,52 +119,57 @@
             <!-- 表格 -->
             <div class="main-content-table">
 
-                <el-table :data="data" style="width: 100%" @selection-change="handleSelectionChange" :border="true">
+                <el-table :data="data"
+                          highlight-current-row
+                          @selection-change="handleSelectionChange" style="width: 100%">
 
-                    <el-table-column type="selection" width="55" ></el-table-column>
+                    <el-table-column type="selection" width="55"></el-table-column>
 
-                    <el-table-column prop="id" width="120" label="ID" fixed="left"></el-table-column>
+                    <el-table-column sortable
+                                     prop="id"
+                                     min-width="100"
+                                     label="ID"
+                                     fixed="left"
+                                     align="center"></el-table-column>
 
-                    <el-table-column prop="name" label="名称" width="100"></el-table-column>
+                    <el-table-column prop="name" label="名称" width="120" :show-overflow-tooltip="true"></el-table-column>
 
-                    <el-table-column prop="macro" label="宏参数" width="180"></el-table-column>
+                    <el-table-column prop="macro" label="宏参数" width="180" :show-overflow-tooltip="true"></el-table-column>
 
-                    <el-table-column label="宏类型">
+                    <el-table-column label="宏类型" >
                         <template scope="scope">
                             <span>{{parseSysType(scope.row.sysType)}}</span>
                         </template>
                     </el-table-column>
 
-                    <el-table-column prop="useType" label="应用类型">
+                    <el-table-column prop="useType" label="应用类型" min-width="100">
                         <template scope="scope">
                             <span>{{parseUseType(scope.row.useType)}}</span>
                         </template>
                     </el-table-column>
 
-                    <el-table-column label="元素格式">
+                    <el-table-column label="元素格式" min-width="100">
                         <template scope="scope">
                             <span>{{parseDataType(scope.row.dataType)}}</span>
                         </template>
                     </el-table-column>
 
-                    <el-table-column label="编辑方式">
+                    <el-table-column label="编辑方式" min-width="110">
                         <template scope="scope">
                             <span>{{parseEditType(scope.row.editType)}}</span>
                         </template>
                     </el-table-column>
 
-                    <el-table-column label="日期" width="260">
+                    <el-table-column sortable label="日期" min-width="260" align="center">
                         <template scope="scope">
                             <span>{{parseDate(scope.row.lastChanged)}}</span>
                         </template>
                     </el-table-column>
 
-                    <el-table-column label="操作" width="150" fixed="right">
+                    <el-table-column label="操作" width="150" fixed="right" align="center">
                         <template scope="scope">
-                            <el-button type="primary" :plain="true" size="small" @click="edit(scope.row.id)">编辑
-                            </el-button>
-                            <el-button type="danger" :plain="true" size="small" @click="del(scope.row.id)">删除
-                            </el-button>
+                            <el-button type="primary" :plain="true" size="small" @click="edit(scope.row.id)">编辑</el-button>
+                            <el-button type="danger" :plain="true" size="small" @click="del(scope.row.id)">删除</el-button>
                         </template>
                     </el-table-column>
 
@@ -195,7 +195,7 @@
 
 <script>
 
-    import common from "../supplier.js"
+    import common from "../macro.js"
 
     export default {
         data() {
@@ -293,15 +293,15 @@
                     });
                     this.refresh();
                 }, (response) => {
-                   this.$message({
-                       type: "error",
-                       message: "批量删除失败，稍后重试"
-                   });
+                    this.$message({
+                        type: "error",
+                        message: "批量删除失败，稍后重试"
+                    });
                 });
             },
             // 编辑
             edit(id) {
-                console.log(id);
+                window.location.href = "/#/macro/edit/" + id;
             },
             // 单条件查询
             handleSearch () {
@@ -414,8 +414,8 @@
             parseDate: common.parseDate
         },
         created () {
-            this.$root.title = '广告供应商';
-            this.$root.subTitle = '列表';
+            this.$root.title = "元素";
+            this.$root.subTitle = "列表";
             this.refresh();
         }
     }

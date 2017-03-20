@@ -95,8 +95,15 @@
 
                 <el-submenu index="3-1">
                     <template slot="title">元素管理</template>
-                    <el-menu-item index="3-1-1">列表</el-menu-item>
-                    <el-menu-item index="3-1-2">新增</el-menu-item>
+
+                    <router-link to="/macro/list">
+                        <el-menu-item index="3-1-1">列表</el-menu-item>
+                    </router-link>
+
+                    <router-link to="/macro/edit">
+                        <el-menu-item index="3-1-2">新增</el-menu-item>
+                    </router-link>
+
                     <el-menu-item index="3-1-3">编辑</el-menu-item>
                 </el-submenu>
 
