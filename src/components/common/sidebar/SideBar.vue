@@ -38,12 +38,8 @@
                         <el-menu-item index="1-1-1">列表</el-menu-item>
                     </router-link>
 
-                    <router-link to="/supplier/new">
-                        <el-menu-item index="1-1-2" to="/supplier/new">新增</el-menu-item>
-                    </router-link>
-
                     <router-link to="/supplier/edit">
-                        <el-menu-item index="1-1-3" to="/supplier/edit">编辑</el-menu-item>
+                        <el-menu-item index="1-1-2">新增</el-menu-item>
                     </router-link>
 
                 </el-submenu>
@@ -104,7 +100,6 @@
                         <el-menu-item index="3-1-2">新增</el-menu-item>
                     </router-link>
 
-                    <el-menu-item index="3-1-3">编辑</el-menu-item>
                 </el-submenu>
 
                 <el-submenu index="3-2">

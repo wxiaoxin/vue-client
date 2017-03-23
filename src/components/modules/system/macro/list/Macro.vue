@@ -32,8 +32,7 @@
                         <div style="float: right">
 
                             <el-input v-model="searchData.value" placeholder="请输入内容" size="small" style="width: 320px">
-                                <el-select v-model="searchData.type" slot="prepend" placeholder="请选择"
-                                           style="width: 100px;">
+                                <el-select v-model="searchData.type" class="el-select-100" slot="prepend" placeholder="请选择">
                                     <el-option label="ID" value="1"></el-option>
                                     <el-option label="名称" value="2"></el-option>
                                     <el-option label="宏参数" value="3"></el-option>

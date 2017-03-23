@@ -1,5 +1,5 @@
 <template>
-    <div style="margin: 16px 22px;padding: 4px 20px;">
+    <div style="margin: 16px 22px">
         <el-row>
             <el-col :lg="12" :sm="10" :xs="10">
                 <h2>{{$root.title}}

@@ -6,6 +6,7 @@
 body, html {
     width: 100%;
     height: 100%;
+    background: #f3f3f4;
 }
 
 hr {
@@ -23,6 +24,13 @@ ul.el-menu {
     display: inline-block !important;
 }
 
+.el-select-100 {
+    width: 100px;
+}
+
+.el-select-78 {
+    width: 78px;
+}
 
 @media screen and (max-width: 996px) {
     .side-wrapper {
@@ -38,7 +46,7 @@ ul.el-menu {
 
 .edit-panel,
 .table-panel {
-    padding: 32px;
+    padding: 16px;
 }
 
 .edit-panel .el-input,

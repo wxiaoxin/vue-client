@@ -58,7 +58,6 @@
 
     .content-wrapper {
         height: 100%;
-        margin: 5px;
     }
 
 </style>
