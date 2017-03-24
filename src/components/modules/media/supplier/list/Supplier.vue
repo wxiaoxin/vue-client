@@ -10,13 +10,9 @@
 
                     <el-col :lg="4" :ms="4" :sm="4" :xs="4">
 
-                        <el-button type="primary"
-                                   size="small"
-                                   title="新增供应商">
-                            <router-link to="/supplier/edit">
-                                <i class="el-icon-plus" style="color: #fff;"></i>
-                            </router-link>
-                        </el-button>
+                        <router-link to="/supplier/edit">
+                            <el-button type="primary" size="small">新增供应商</el-button>
+                        </router-link>
 
                     </el-col>
 
@@ -25,15 +21,15 @@
                         <div style="float: right">
 
                             <!--<el-select v-model="siteStatus" class="el-select-100" placeholder="网站状态" size="small">-->
-                                <!--<el-option label="全部" value="1"></el-option>-->
-                                <!--<el-option label="有效" value="2"></el-option>-->
-                                <!--<el-option label="无效" value="3"></el-option>-->
+                            <!--<el-option label="全部" value="1"></el-option>-->
+                            <!--<el-option label="有效" value="2"></el-option>-->
+                            <!--<el-option label="无效" value="3"></el-option>-->
                             <!--</el-select>-->
 
                             <!--<el-select v-model="siteType" class="el-select-100" placeholder="类型" size="small">-->
-                                <!--<el-option label="全部" value="1"></el-option>-->
-                                <!--<el-option label="PC" value="2"></el-option>-->
-                                <!--<el-option label="WAP" value="3"></el-option>-->
+                            <!--<el-option label="全部" value="1"></el-option>-->
+                            <!--<el-option label="PC" value="2"></el-option>-->
+                            <!--<el-option label="WAP" value="3"></el-option>-->
                             <!--</el-select>-->
 
                             <el-input v-model="searchData.value"
@@ -79,9 +75,13 @@
                     <el-table-column prop="adSpaceNumber" label="有效广告位" align="center"></el-table-column>
 
                     <el-table-column label="操作"
-                                     width="120"
+                                     width="200"
                                      align="center">
                         <template scope="scope">
+                            <el-button size="small" @click="handleEdit(scope.row.supplierId)">编辑</el-button>
+
+                            &nbsp;&nbsp;
+
                             <el-dropdown>
                                 <el-button size="small">
                                     <i class="el-icon-setting"></i>
@@ -160,8 +160,11 @@
             handleEnter () {
                 this.refresh();
             },
+            handleEdit (supplierId) {
+                window.location.href = "/#/supplier/edit/" + supplierId;
+            },
             // 刷新数据
-            refresh () {
+            refresh (){
                 let params = {
                     pageNum: this.page.pageNum,
                     pageSize: this.page.pageSize,
@@ -175,14 +178,14 @@
                     params.id = "";
                 }
                 this.$http.get("/supplier/all", {
-                        params: params
-                    }).then((response) => {
-                        this.data = response.data.data;
-                        this.page.pages = response.data.pages;
-                        this.page.total = response.data.total;
-                    }, (response) => {
-                        console.log(response);
-                    });
+                    params: params
+                }).then((response) => {
+                    this.data = response.data.data;
+                    this.page.pages = response.data.pages;
+                    this.page.total = response.data.total;
+                }, (response) => {
+                    console.log(response);
+                });
             }
         },
         created () {

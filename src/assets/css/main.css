@@ -84,3 +84,16 @@ ul.el-menu {
 .search-form .el-form-item {
     margin-bottom: 0px !important;
 }
+
+/* 分割线 */
+.hr-div {
+    height: 1px;
+    background: lightgrey;
+    width: 640px;
+    margin: 16px 0px;
+}
+
+/* 分割标题 */
+.hr-h4 {
+    color: #20a0ff;
+}

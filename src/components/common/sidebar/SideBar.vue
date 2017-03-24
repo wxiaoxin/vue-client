@@ -39,7 +39,7 @@
                     </router-link>
 
                     <router-link to="/supplier/edit">
-                        <el-menu-item index="1-1-2">新增</el-menu-item>
+                        <el-menu-item index="1-1-2">编辑</el-menu-item>
                     </router-link>
 
                 </el-submenu>
@@ -47,9 +47,12 @@
 
                 <el-submenu index="1-2">
                     <template slot="title">站点管理</template>
-                    <el-menu-item index="2-1-1">列表</el-menu-item>
-                    <el-menu-item index="2-1-2">新增</el-menu-item>
-                    <el-menu-item index="2-1-3">编辑</el-menu-item>
+                    <router-link to="/site/list">
+                        <el-menu-item index="2-1-1">列表</el-menu-item>
+                    </router-link>
+                    <router-link to="/site/edit">
+                        <el-menu-item index="2-1-2">编辑</el-menu-item>
+                    </router-link>
                 </el-submenu>
 
 

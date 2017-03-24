@@ -9,6 +9,9 @@ import MacroEdit from "../components/modules/system/macro/edit/MacroEdit.vue"
 import Suppiler from "../components/modules/media/supplier/list/Supplier.vue"
 import SupplierEdit from "../components/modules/media/supplier/edit/SupplierEdit.vue"
 
+import Site from "../components/modules/media/site/list/Site.vue"
+import SiteEdit from "../components/modules/media/site/edit/SiteEdit.vue"
+
 
 Vue.use(VueRouter);
 
@@ -29,6 +32,12 @@ export default new VueRouter({
         }, {
             path: "/supplier/edit/:id?",
             component: SupplierEdit
+        }, {
+            path: "/site/list",
+            component: Site
+        }, {
+            path: "/site/edit/:id?",
+            component: SiteEdit
         }
 
     ]
