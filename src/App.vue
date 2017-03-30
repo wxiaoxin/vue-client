@@ -8,6 +8,7 @@
             </el-col>
 
             <el-col :lg="20" :md="20" :sm="24" :xs="24">
+				<head-nav></head-nav>
                 <bread></bread>
                 <div class="content-wrapper">
                     <!-- 路由窗口 -->

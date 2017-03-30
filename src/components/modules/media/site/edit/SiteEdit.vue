@@ -1,9 +1,9 @@
 <template>
 
-    <div>
+    <section class="">
 
-        <h4>站点编辑</h4>
 
-    </div>
+
+	</section>
 
 </template>

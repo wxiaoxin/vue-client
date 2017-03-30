@@ -1,5 +1,75 @@
 @import "main.css";
 
+/*********** 全局变量 ***********/
+
+/*
+ * 测试边框
+ */
+$testBorder: 1px solid black;
+
+/*
+ * 页面主体颜色
+ */
+$mainColor: #fff;
+
+/*
+ * 页面主体内边距
+ */
+$mainPaddingSize: 16px;
+
+/*
+ * 边框颜色
+ */
+$borderColor: #d1dbe5;
+
+/*
+ * 主体颜色
+ */
+$themeColor: #324157;
+
+/*********** 顶部工具栏 ***********/
+
+/*
+ * 顶部工具栏高度
+ */
+$headerHeight: 50px;
+
+/*
+ * 顶部工具栏元素上内边距
+ */
+$headerItemPaddingTop: 8px;
+
+.header-container {
+	height: $headerHeight;
+	border-bottom: 1px solid $borderColor;
+	background: $mainColor;
+	nav {
+		padding: 0px $mainPaddingSize;
+		.nav-left {
+			float: left;
+			height: $headerHeight;
+			padding-top: $headerItemPaddingTop;
+		}
+		.nav-right {
+			float: right;
+			ul {
+				list-style: none;
+				display: inline;
+				height: $headerHeight;
+				li {
+					float: left;
+					width: $headerHeight;
+					text-align: center;
+					padding-top: $headerItemPaddingTop;
+				}
+			}
+		}
+		button {
+			color: $themeColor;
+		}
+	}
+}
+
 // 标签页标题
 .tab-header-title {
 	text-align: center;
