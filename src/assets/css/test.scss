@@ -1,5 +1,7 @@
 @import "main.css";
 
+
+
 /*********** 全局变量 ***********/
 
 /*
@@ -27,6 +29,9 @@ $borderColor: #d1dbe5;
  */
 $themeColor: #324157;
 
+
+
+
 /*********** 顶部工具栏 ***********/
 
 /*
@@ -39,39 +44,88 @@ $headerHeight: 50px;
  */
 $headerItemPaddingTop: 8px;
 
+
 .header-container {
-	height: $headerHeight;
-	border-bottom: 1px solid $borderColor;
-	background: $mainColor;
-	nav {
-		padding: 0px $mainPaddingSize;
-		.nav-left {
-			float: left;
-			height: $headerHeight;
-			padding-top: $headerItemPaddingTop;
-		}
-		.nav-right {
-			float: right;
-			ul {
-				list-style: none;
-				display: inline;
-				height: $headerHeight;
-				li {
-					float: left;
-					width: $headerHeight;
-					text-align: center;
-					padding-top: $headerItemPaddingTop;
-				}
-			}
-		}
-		button {
-			color: $themeColor;
-		}
-	}
+    height: $headerHeight;
+    border-bottom: 1px solid $borderColor;
+    background: $mainColor;
+    nav {
+        padding: 0 $mainPaddingSize;
+        .nav-left {
+            float: left;
+            height: $headerHeight;
+            padding-top: $headerItemPaddingTop;
+        }
+        .nav-right {
+            float: right;
+            ul {
+                list-style: none;
+                display: inline;
+                height: $headerHeight;
+                li {
+                    float: left;
+                    width: $headerHeight;
+                    text-align: center;
+                    padding-top: $headerItemPaddingTop;
+                }
+            }
+        }
+        button {
+            color: $themeColor;
+        }
+    }
 }
 
-// 标签页标题
+/*
+ * 消息弹层
+ */
+.el-popover {
+    .header-message {
+        width: 260px;
+        li {
+            border-bottom: 1px solid $borderColor;
+            padding: 6px;
+            min-height: 54px;
+            list-style: none;
+            // 消息头像
+            .message-img {
+                float: left;
+                padding-top: 2px;
+                img {
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 24px
+                }
+            }
+            // 消息内容
+            div.message-cnt {
+                margin-left: 58px;
+                line-height: 20px;
+                strong {
+                    padding-bottom: 2px;
+                }
+                small {
+                    padding-top: 2px;
+                }
+            }
+
+        }
+    }
+    // 查看全部消息
+    .header-message-more {
+        text-align: center;
+        margin: 4px 0;
+        padding-top: 12px;
+        a {
+            color: $themeColor;
+        }
+    }
+}
+
+/*
+ * 标签页标题
+ */
 .tab-header-title {
-	text-align: center;
-	margin-bottom: 8px
+    text-align: center;
+    margin-bottom: 8px;
 }

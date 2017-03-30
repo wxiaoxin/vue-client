@@ -9,10 +9,10 @@ body, html {
     background: #f3f3f4;
 }
 
-hr {
-    border-top: 1px solid #ddd;
-    width: 960px;
-}
+/*hr {*/
+    /*border-top: 1px solid #ddd;*/
+    /*width: 960px;*/
+/*}*/
 
 ul.el-menu {
     -webkit-border-radius: 0px;
