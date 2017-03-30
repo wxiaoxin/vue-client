@@ -6,7 +6,11 @@ import axios from 'axios'
 
 import App from './App'
 
-import './assets/css/main.css'
+// 引用mock数据
+import './mock/index'
+
+// 引入scss样式
+import './assets/css/test.scss'
 
 import 'element-ui/lib/theme-default/index.css'
 
@@ -20,8 +24,8 @@ new Vue({
     el: '#app',
     router,
     template: '<App/>',
-    components: {App},
-    data () {
+    components: { App },
+    data() {
         return {
             msg: '',
             title: 'Title',

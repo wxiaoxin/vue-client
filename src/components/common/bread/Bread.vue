@@ -2,9 +2,9 @@
     <div style="margin: 16px 22px">
         <el-row>
             <el-col :lg="12" :sm="10" :xs="10">
-                <h2>{{$root.title}}
+                <h3>{{$root.title}}
                     <small>{{$root.subTitle}}</small>
-                </h2>
+                </h3>
             </el-col>
             <el-col :lg="12" :sm="14" :xs="14">
                 <el-breadcrumb separator="/" style="float: right">

@@ -32,6 +32,10 @@ ul.el-menu {
     width: 78px;
 }
 
+.el-input-200 {
+	width: 200px !important;
+}
+
 @media screen and (max-width: 996px) {
     .side-wrapper {
         display: none;
@@ -53,6 +57,14 @@ ul.el-menu {
 .edit-panel .el-select,
 .edit-panel .el-textarea {
     width: 360px !important;
+}
+
+.dropdown-link {
+  color: #000;
+}
+
+.column-link {
+    color: blue;
 }
 
 

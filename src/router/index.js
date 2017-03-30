@@ -8,9 +8,16 @@ import MacroEdit from "../components/modules/system/macro/edit/MacroEdit.vue"
 
 import Suppiler from "../components/modules/media/supplier/list/Supplier.vue"
 import SupplierEdit from "../components/modules/media/supplier/edit/SupplierEdit.vue"
+import SupplierDetail from "../components/modules/media/supplier/detail/SupplierDetail.vue"
 
 import Site from "../components/modules/media/site/list/Site.vue"
 import SiteEdit from "../components/modules/media/site/edit/SiteEdit.vue"
+
+import App from "../components/modules/media/app/list/App.vue"
+import AppEdit from "../components/modules/media/app/edit/AppEdit.vue"
+
+import AdSpace from "../components/modules/media/adspace/list/AdSpace.vue"
+import AdSpaceEdit from "../components/modules/media/adspace/edit/AdSpaceEdit.vue"
 
 
 Vue.use(VueRouter);
@@ -33,11 +40,26 @@ export default new VueRouter({
             path: "/supplier/edit/:id?",
             component: SupplierEdit
         }, {
-            path: "/site/list",
+            path: "/supplier/detail/:supplierId?",
+            component: SupplierDetail
+        }, {
+            path: "/site/:supplierId/list",
             component: Site
         }, {
             path: "/site/edit/:id?",
             component: SiteEdit
+        }, {
+            path: "/app/:supplierId/list",
+            component: App
+        }, {
+            path: "/app/edit/:id?",
+            component: AppEdit
+        }, {
+            path: "/adspace/:supplierId/list",
+            component: AdSpace
+        }, {
+            path: "/adspace/edit/:id?",
+            component: AdSpaceEdit
         }
 
     ]

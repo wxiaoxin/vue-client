@@ -20,21 +20,9 @@
 
                         <div style="float: right">
 
-                            <!--<el-select v-model="siteStatus" class="el-select-100" placeholder="网站状态" size="small">-->
-                            <!--<el-option label="全部" value="1"></el-option>-->
-                            <!--<el-option label="有效" value="2"></el-option>-->
-                            <!--<el-option label="无效" value="3"></el-option>-->
-                            <!--</el-select>-->
-
-                            <!--<el-select v-model="siteType" class="el-select-100" placeholder="类型" size="small">-->
-                            <!--<el-option label="全部" value="1"></el-option>-->
-                            <!--<el-option label="PC" value="2"></el-option>-->
-                            <!--<el-option label="WAP" value="3"></el-option>-->
-                            <!--</el-select>-->
-
                             <el-input v-model="searchData.value"
                                       @keyup.enter.native="handleEnter"
-                                      placeholder="请输入值，并回车"
+                                      placeholder="输值，回车"
                                       size="small" style="width: 320px;">
                                 <el-select v-model="searchData.type" slot="prepend" class="el-select-78"
                                            placeholder="请选择">
@@ -66,32 +54,27 @@
                                      align="center">
                     </el-table-column>
 
-                    <el-table-column prop="supplierName" label="名称" align="center"></el-table-column>
-
-                    <el-table-column prop="siteNumber" label="有效网站" align="center"></el-table-column>
-
-                    <el-table-column prop="appNumber" label="有效应用" align="center"></el-table-column>
-
-                    <el-table-column prop="adSpaceNumber" label="有效广告位" align="center"></el-table-column>
-
-                    <el-table-column label="操作"
-                                     width="200"
-                                     align="center">
+                    <el-table-column label="名称" align="center">
                         <template scope="scope">
-                            <el-button size="small" @click="handleEdit(scope.row.supplierId)">编辑</el-button>
+                            <router-link v-bind:to="getEditUrl(scope.row.supplierId)" class="column-link">{{scope.row.supplierName}}</router-link>
+                        </template>
+                    </el-table-column>
 
-                            &nbsp;&nbsp;
+                    <el-table-column label="有效网站" align="center">
+                        <template scope="scope">
+                            <router-link v-bind:to="getSiteUrl(scope.row.supplierId, scope.row.supplierName)" class="column-link">{{scope.row.siteNumber}}</router-link>
+                        </template>
+                    </el-table-column>
 
-                            <el-dropdown>
-                                <el-button size="small">
-                                    <i class="el-icon-setting"></i>
-                                </el-button>
-                                <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item>网站管理</el-dropdown-item>
-                                    <el-dropdown-item>应用管理</el-dropdown-item>
-                                    <el-dropdown-item>广告位管理</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </el-dropdown>
+                    <el-table-column label="有效应用" align="center">
+                        <template scope="scope">
+                            <router-link v-bind:to="getAppUrl(scope.row.supplierId, scope.row.supplierName)" class="column-link">{{scope.row.appNumber}}</router-link>
+                        </template>
+                    </el-table-column>
+
+                    <el-table-column prop="adSpaceNumber" label="有效广告位" align="center">
+                        <template scope="scope">
+                            <router-link v-bind:to="getAdSpaceUrl(scope.row.supplierId, scope.row.supplierName)" class="column-link">{{scope.row.adSpaceNumber}}</router-link>
                         </template>
                     </el-table-column>
 
@@ -136,7 +119,15 @@
                     value: ""
                 },
                 // 表格数据
-                data: [],
+                data: [
+					{
+					    "supplierId": 1,
+						"supplierName": '测试名称',
+						'siteNumber': 3,
+						'appNumber': 5,
+						'adSpaceNumber': 8
+					}
+				],
                 // 分页数据
                 page: {
                     pageNum: 1,
@@ -162,6 +153,22 @@
             },
             handleEdit (supplierId) {
                 window.location.href = "/#/supplier/edit/" + supplierId;
+            },
+            // 构造站点链接地址
+            getSiteUrl(supplierId, supplierName) {
+                return "/supplier/detail/" + supplierId + "?supplierName=" + supplierName + "&activePane=site";
+            },
+            // 构造应用链接地址
+            getAppUrl(supplierId, supplierName) {
+                return "/supplier/detail/" + supplierId + "?supplierName=" + supplierName + "&activePane=app";
+            },
+            // 构造广告位链接地址
+            getAdSpaceUrl(supplierId, supplierName) {
+                return "/supplier/detail/" + supplierId + "?supplierName=" + supplierName + "&activePane=adspace";
+            },
+            // 构造编辑广告供应商链接地址
+            getEditUrl (supplierId) {
+                return "/supplier/edit/" + supplierId;
             },
             // 刷新数据
             refresh (){
@@ -191,7 +198,7 @@
         created () {
             this.$root.title = "广告供应商";
             this.$root.subTitle = "列表";
-            this.refresh();
+//            this.refresh();
         }
 
     }

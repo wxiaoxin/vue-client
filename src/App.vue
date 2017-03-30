@@ -45,19 +45,19 @@
 <style>
 
     #app {
-        height: 100%;
-    }
+		 height: 100%;
+	 }
 
-    .wrapper {
-        height: 100%;
-    }
+	.wrapper {
+		height: 100%;
+	}
 
-    .side-wrapper {
-        height: 100%;
-    }
+	.side-wrapper {
+		height: 100%;
+	}
 
-    .content-wrapper {
-        height: 100%;
-    }
+	.content-wrapper {
+		height: 100%;
+	}
 
 </style>
